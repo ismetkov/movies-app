@@ -31,6 +31,15 @@ export interface GetMoviesBySearchTermAction {
   payload: Movie[];
 }
 
+export interface GetMoviesAction {
+  type: ActionTypes.getMovies;
+  payload: Movie[];
+}
+
+interface MoviesList {
+  results: Movie[];
+}
+
 export const getDetailsInProgress = (data: Boolean) => ({
   type: ActionTypes.getMovieDetailsInProgress,
   payload: data,
@@ -38,7 +47,7 @@ export const getDetailsInProgress = (data: Boolean) => ({
 
 export const getMovies = () => {
   return async (dispatch: Dispatch) => {
-    const res = await axios.get(
+    const res = await axios.get<MoviesList>(
       `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`
     );
 
@@ -74,7 +83,7 @@ export const getMovieDetails = (id: number) => {
 
 export const getMoviesBySearchTerm = (term: string) => {
   return async (dispatch: Dispatch) => {
-    const res = await axios.get(
+    const res = await axios.get<MoviesList>(
       `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${term}`
     );
 

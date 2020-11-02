@@ -36,9 +36,13 @@ export interface GetTvShowsBySearchTermAction {
   payload: TvShow[];
 }
 
+interface TvShowsList {
+  results: TvShow[];
+}
+
 export const getTvShows = () => {
   return async (dispatch: Dispatch) => {
-    const res = await axios.get(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
+    const res = await axios.get<TvShowsList>(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
 
     dispatch<GetTvShowsAction>({
       type: ActionTypes.getTvShows,
@@ -72,7 +76,7 @@ export const getTvShowDetails = (id: number) => {
 
 export const getTvShowsBySearchTerm = (term: string) => {
   return async (dispatch: Dispatch) => {
-    const res = await axios.get(
+    const res = await axios.get<TvShowsList>(
       `${BASE_URL}/search/tv?api_key=${API_KEY}&query=${term}`
     );
 
