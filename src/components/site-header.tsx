@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import { PAGE_HOME_TABS, SITE_NAME } from '../constants';
+
+import { StoreState } from '../reducers';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,25 +20,44 @@ const Logo = styled.div`
   font-size: 20px;
   margin-bottom: 10px;
   font-weight: bold;
-`
+`;
+
+interface ButtonProps {
+  isSelected: boolean;
+}
+
+const Button = styled.button`
+  background: transparent;
+  border: none;
+  padding: 10px;
+  margin: 0 10px;
+  border-bottom: ${(props: ButtonProps) => props.isSelected ? '1px solid var(--yellow)' : null};
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 interface SiteHeaderProps {
   onClickSetTabView: (tab: string) => void;
 }
 
 function SiteHeader({ onClickSetTabView }: SiteHeaderProps) {
+  const currentTab = useSelector((state: StoreState) => state.main.tabView);
+
   return (
     <Wrapper>
       <Logo>
         {SITE_NAME}
       </Logo>
       <div>
-        <button onClick={() => onClickSetTabView(PAGE_HOME_TABS.MOVIES)}>
+        <Button isSelected={currentTab === PAGE_HOME_TABS.MOVIES} onClick={() => onClickSetTabView(PAGE_HOME_TABS.MOVIES)}>
           Movies
-        </button>
-        <button onClick={() => onClickSetTabView(PAGE_HOME_TABS.TV)}>
+        </Button>
+        <Button isSelected={currentTab === PAGE_HOME_TABS.TV} onClick={() => onClickSetTabView(PAGE_HOME_TABS.TV)}>
           Tv Shows
-        </button>
+        </Button>
       </div>
     </Wrapper>
   )

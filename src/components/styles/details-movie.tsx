@@ -64,3 +64,7 @@ export const GoBack = styled(Link)`
   color: var(--white);
   padding: 10px;
 `
+
+export const LoaderText = styled.p`
+  text-align: center;
+`;

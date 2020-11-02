@@ -7,7 +7,7 @@ import { StoreState } from '../reducers';
 import { POSTER_URL } from '../constants';
 
 import { InnerWrapper } from '../components/styles/global-style';
-import { MovieDetailsHero, MovieDetailsTitle, MovieDetailsImage, GoBack } from '../components/styles/details-movie';
+import { MovieDetailsHero, MovieDetailsTitle, MovieDetailsImage, GoBack, LoaderText } from '../components/styles/details-movie';
 
 function MovieDetails({ id = '' }: RouteComponentProps<{ id: string }>) {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function MovieDetails({ id = '' }: RouteComponentProps<{ id: string }>) {
   }, [dispatch, id]);
 
   if (!movieDetails || getMovieDetailsInProgress) {
-    return <p>Loading....</p>;
+    return <LoaderText>Loading...</LoaderText>;
   }
 
   return (
