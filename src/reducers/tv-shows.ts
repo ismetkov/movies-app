@@ -5,12 +5,14 @@ export interface TvShowsState {
   tvShows: TvShow[];
   tvShowDetails: TvShow | null;
   getTvShowDetailsInProgress: boolean;
+  getTvShowsInProgress: boolean;
 }
 
 const INITIAL_STATE = {
   tvShows: [],
   tvShowDetails: null,
   getTvShowDetailsInProgress: false,
+  getTvShowsInProgress: false,
 };
 
 export const tvShowsReducer = (
@@ -35,10 +37,16 @@ export const tvShowsReducer = (
         ...state,
         getTvShowDetailsInProgress: action.payload,
       };
-
+      
     case ActionTypes.getTvShowsBySearchTerm:
       return { ...state, tvShows: action.payload };
-
+      
+    case ActionTypes.getTvShowsInProgress:
+      return { 
+        ...state,
+        getTvShowsInProgress: action.payload,
+      };
+      
     default:
       return state;
   }

@@ -30,6 +30,15 @@ function Movies(_: RouteComponentProps) {
   const tabView = useSelector((state: StoreState) => state.main.tabView);
   const IS_MOVIES_TAB = tabView === PAGE_HOME_TABS.MOVIES;
 
+
+  const getTvShowsInProgress = useSelector(
+    (state: StoreState) => state.tvShows.getTvShowsInProgress
+  );
+
+  const getMoviesInProgress = useSelector(
+    (state: StoreState) => state.movies.getMoviesInProgress
+  );
+
   useEffect((): void => {
     if (!searchTermValue) {
       dispatch(IS_MOVIES_TAB ? getMovies() : getTvShows());
@@ -81,9 +90,9 @@ function Movies(_: RouteComponentProps) {
         value={searchTermValue}
       />
       {IS_MOVIES_TAB ? (
-        <MoviesList movies={movies} />
+        <MoviesList movies={movies} getMoviesInProgress={getMoviesInProgress} />
       ) : (
-        <TVShowsList tvShows={tvShows} />
+        <TVShowsList tvShows={tvShows} getTvShowsInProgress={getTvShowsInProgress} />
       )}
     </InnerWrapper>
   );

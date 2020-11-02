@@ -4,12 +4,14 @@ import {
   GetMovieDetailsAction,
   GetMovieInProgressAction,
   GetMoviesBySearchTermAction,
+  GetMoviesInProgressAction
 } from './movies';
 import {
   GetTvShowsAction,
   GetTvShowDetailsAction,
   GetTvShowInProgressAction,
   GetTvShowsBySearchTermAction,
+  GetTvShowsInProgressAction,
 } from './tv-shows';
 
 export enum ActionTypes {
@@ -23,6 +25,8 @@ export enum ActionTypes {
   handeSetTabView,
   getMoviesBySearchTerm,
   getTvShowsBySearchTerm,
+  getTvShowsInProgress,
+  getMoviesInProgress,
 }
 
 export type Action =
@@ -35,4 +39,6 @@ export type Action =
   | GetTvShowDetailsAction
   | GetTvShowInProgressAction
   | GetMoviesBySearchTermAction
-  | GetTvShowsBySearchTermAction;
+  | GetTvShowsBySearchTermAction
+  | GetTvShowsInProgressAction
+  | GetMoviesInProgressAction;

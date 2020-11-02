@@ -40,13 +40,28 @@ interface TvShowsList {
   results: TvShow[];
 }
 
+export interface GetTvShowsInProgressAction {
+  type: ActionTypes.getTvShowsInProgress;
+  payload: boolean;
+}
+
 export const getTvShows = () => {
   return async (dispatch: Dispatch) => {
+    dispatch<GetTvShowsInProgressAction>({
+      type: ActionTypes.getTvShowsInProgress,
+      payload: true,
+    });
+
     const res = await axios.get<TvShowsList>(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
 
     dispatch<GetTvShowsAction>({
       type: ActionTypes.getTvShows,
       payload: res.data.results,
+    });
+
+    dispatch<GetTvShowsInProgressAction>({
+      type: ActionTypes.getTvShowsInProgress,
+      payload: false,
     });
   };
 };
@@ -76,13 +91,23 @@ export const getTvShowDetails = (id: number) => {
 
 export const getTvShowsBySearchTerm = (term: string) => {
   return async (dispatch: Dispatch) => {
+    dispatch<GetTvShowsInProgressAction>({
+      type: ActionTypes.getTvShowsInProgress,
+      payload: true,
+    });
+
     const res = await axios.get<TvShowsList>(
       `${BASE_URL}/search/tv?api_key=${API_KEY}&query=${term}`
     );
-
+    
     dispatch<GetTvShowsBySearchTermAction>({
       type: ActionTypes.getTvShowsBySearchTerm,
       payload: res.data.results,
+    });
+
+    dispatch<GetTvShowsInProgressAction>({
+      type: ActionTypes.getTvShowsInProgress,
+      payload: false,
     });
   };
 };

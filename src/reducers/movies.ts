@@ -5,12 +5,14 @@ export interface MoviesState {
   movies: Movie[];
   movieDetails: Movie | null;
   getMovieDetailsInProgress: boolean;
+  getMoviesInProgress: boolean;
 }
 
 const INITIAL_STATE = {
   movies: [],
   movieDetails: null,
   getMovieDetailsInProgress: false,
+  getMoviesInProgress: false,
 };
 
 export const moviesReducer = (
@@ -38,6 +40,12 @@ export const moviesReducer = (
 
     case ActionTypes.getMoviesBySearchTerm:
       return { ...state, movies: action.payload.slice(0, LIMIT_MOVIES_COUNT) };
+
+    case ActionTypes.getMoviesInProgress:
+      return { 
+        ...state,
+        getMoviesInProgress: action.payload,
+      };
 
     default:
       return state;
